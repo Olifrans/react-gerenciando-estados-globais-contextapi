@@ -1,3 +1,4 @@
+import { UsuarioContext } from "common/context/Usuario";
 import Carrinho from "pages/Carrinho";
 import Feira from "pages/Feira";
 import Login from "pages/Login";
@@ -13,14 +14,16 @@ function Rotas() {
       <Route
         path="/"
         element={
-
-          <Login
-            nome={nome}
-            setNome={setNome}
-            saldo={saldo}
-            setSaldo={setSaldo}
-          />
-          
+          <UsuarioContext.Provider
+            value={{
+              nome,
+              setNome,
+              saldo,
+              setSaldo,
+            }}
+          >
+            <Login />
+          </UsuarioContext.Provider>
         }
       />
 
