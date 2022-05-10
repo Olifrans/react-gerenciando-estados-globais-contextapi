@@ -1,8 +1,11 @@
 import { Button } from "@material-ui/core";
 import { Container, Titulo, InputContainer } from "./styles";
 import { Input, InputLabel, InputAdornment } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 function Login({ nome, setNome, saldo, setSaldo }) {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Titulo>Insira o seu nome</Titulo>
@@ -23,7 +26,13 @@ function Login({ nome, setNome, saldo, setSaldo }) {
           startAdornment={<InputAdornment position="start">R$</InputAdornment>}
         />
       </InputContainer>
-      <Button variant="contained" color="primary">
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          navigate("/feira");
+        }}
+      >
         Avançar
       </Button>
     </Container>
