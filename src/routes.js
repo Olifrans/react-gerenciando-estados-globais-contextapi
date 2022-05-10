@@ -13,12 +13,14 @@ function Rotas() {
       <Route
         path="/"
         element={
+
           <Login
             nome={nome}
             setNome={setNome}
             saldo={saldo}
             setSaldo={setSaldo}
           />
+          
         }
       />
 
