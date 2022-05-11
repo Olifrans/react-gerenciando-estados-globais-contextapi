@@ -26,7 +26,7 @@ export const Voltar = styled(IconButton).attrs({
 })`
   left: 20px;
   position: absolute;
-  top: 15px;
+  top: 15px;  
 `;
 
 export const TotalContainer = styled.section`

@@ -31,10 +31,9 @@ function Login() {
       </InputContainer>
       <Button
         variant="contained"
-        color="primary" 
+        color="primary"
         disabled={nome.length < 3}
         onClick={() => navigate("/feira")}
-
       >
         Avançar
       </Button>

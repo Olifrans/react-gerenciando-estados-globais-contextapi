@@ -1,4 +1,5 @@
 import { CarrinhoProvider } from "common/context/Carrinho";
+import { PagamentoProvider } from "common/context/Pagamento";
 import { UsuarioProvider } from "common/context/Usuario";
 
 import Carrinho from "pages/Carrinho";
@@ -9,7 +10,6 @@ import { Routes, Route } from "react-router-dom";
 function Rotas() {
   return (
     <Routes>
-
       <Route
         path="/"
         element={
@@ -23,21 +23,25 @@ function Rotas() {
         path="/feira"
         element={
           <UsuarioProvider>
-            <Feira />
+            <CarrinhoProvider>
+              <Feira />
+            </CarrinhoProvider>
           </UsuarioProvider>
         }
       />
-      
 
       <Route
         path="/carrinho"
         element={
-          <CarrinhoProvider>
-            <Carrinho />
-          </CarrinhoProvider>
+          <UsuarioProvider>
+            <CarrinhoProvider>
+              <PagamentoProvider>
+                <Carrinho />
+              </PagamentoProvider>
+            </CarrinhoProvider>
+          </UsuarioProvider>
         }
       />
-
     </Routes>
   );
 }
