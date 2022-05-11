@@ -24,7 +24,9 @@ function Rotas() {
         element={
           <UsuarioProvider>
             <CarrinhoProvider>
-              <Feira />
+              <PagamentoProvider>
+                <Feira />
+              </PagamentoProvider>
             </CarrinhoProvider>
           </UsuarioProvider>
         }
