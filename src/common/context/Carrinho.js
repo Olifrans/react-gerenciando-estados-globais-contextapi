@@ -6,6 +6,7 @@ CarrinhoContext.displayName = "Carrinho";
 export const CarrinhoProvider = ({ children }) => {
   const [carrinho, setCarrinho] = useState([]);
   const [quantidadeProdutos, setQuantidadeProdutos] = useState(0);
+  const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
 
   return (
     <CarrinhoContext.Provider
@@ -14,6 +15,8 @@ export const CarrinhoProvider = ({ children }) => {
         setCarrinho,
         quantidadeProdutos,
         setQuantidadeProdutos,
+        valorTotalCarrinho,
+        setValorTotalCarrinho,
       }}
     >
       {children}
@@ -22,8 +25,14 @@ export const CarrinhoProvider = ({ children }) => {
 };
 
 export const useCarrinhoContext = () => {
-  const { carrinho, setCarrinho, quantidadeProdutos, setQuantidadeProdutos } =
-    useContext(CarrinhoContext);
+  const {
+    carrinho,
+    setCarrinho,
+    quantidadeProdutos,
+    setQuantidadeProdutos,
+    valorTotalCarrinho,
+    setValorTotalCarrinho,
+  } = useContext(CarrinhoContext);
 
   function mudarQuantidade(id, quantidade) {
     return carrinho.map((itemDoCarrinho) => {
@@ -58,12 +67,21 @@ export const useCarrinhoContext = () => {
   }
 
   useEffect(() => {
-    const novaQuantidadeProduto = carrinho.reduce(
-      (contador, produto) => contador + produto.quantidade,
-      0
+    const { novoTotalProduto, novaQuantidadeProduto } = carrinho.reduce(
+      (contador, produto) => ({
+        novaQuantidadeProduto:
+          contador.novaQuantidadeProduto + produto.quantidade,
+        novoTotalProduto:
+          contador.novoTotalProduto + produto.valor * produto.quantidade,
+      }),
+      {
+        novaQuantidadeProduto: 0,
+        novoTotalProduto: 0,
+      }
     );
     setQuantidadeProdutos(novaQuantidadeProduto);
-  }, [carrinho, setQuantidadeProdutos]);
+    setValorTotalCarrinho(novoTotalProduto);
+  }, [carrinho, setQuantidadeProdutos, setValorTotalCarrinho]);
 
   return {
     carrinho,
@@ -72,5 +90,6 @@ export const useCarrinhoContext = () => {
     removerProduto,
     quantidadeProdutos,
     setQuantidadeProdutos,
+    valorTotalCarrinho,
   };
 };
