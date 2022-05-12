@@ -40,25 +40,24 @@ export const useCarrinhoContext = () => {
 
   const { setSaldo } = useContext(UsuarioContext);
 
-  function mudarQuantidade(id, quantidade) {
-    return carrinho.map((itemDoCarrinho) => {
+  const mudarQuantidade = (id, quantidade) =>
+    carrinho.map((itemDoCarrinho) => {
       if (itemDoCarrinho.id === id) itemDoCarrinho.quantidade += quantidade;
       return itemDoCarrinho;
     });
-  }
 
   function adicinarProduto(novoProduto) {
     const temOProduto = carrinho.some(
       (itemDoCarrinho) => itemDoCarrinho.id === novoProduto.id
     );
+    let novoCarrinho = [...carrinho];
     if (!temOProduto) {
       novoProduto.quantidade = 1;
-      return setCarrinho((carrinhoAnterior) => [
-        ...carrinhoAnterior,
-        novoProduto,
-      ]);
+      novoCarrinho.push(novoProduto);
+      return setCarrinho(novoCarrinho);
     }
-    setCarrinho(mudarQuantidade(novoProduto.id, 1));
+    novoCarrinho = mudarQuantidade(novoProduto.id, 1);
+    setCarrinho(novoCarrinho);
   }
 
   function removerProduto(id) {
